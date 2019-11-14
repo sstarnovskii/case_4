@@ -19,7 +19,7 @@ txt = input(lc.INPUT)
 
 # TODO: make function to distinguish russian and english. (Sergey)
 
-# TODO: make functions to count: cyllables, words and sentences.
+# TODO: make functions to count: letters, cyllables, words and sentences.
 
 # TODO: deal with textblob and dostoevsky modules.
 
