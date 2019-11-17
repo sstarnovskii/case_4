@@ -33,7 +33,45 @@ else:
     lang_en = True
     lang_ru = False
 
-# TODO: make functions to count: letters, cyllables, words and sentences.
+# TODO(Aleksandr Zhuravlev): make functions to count: letters, cyllables, words and sentences.
+def syllables_count_ru():
+    glasnye = 'еыаоэяиюёУЕЫАОЭЯИЮЁ'
+    syllables= 0
+    for _ in range(len(txt)):
+        if glasnye.find(txt[_])!=-1:
+            syllables += 1
+    return (syllables)
+
+print(syllables_count_ru())
+
+def words_count_ru():
+    words = txt.split(' ')
+    words_count= len(words)
+    return (words_count)
+
+def sentence_count_universal():
+    sentence_count = 0
+    for _ in range(len(txt)):
+        if txt[_] == '.' or txt[_] == '!' or txt[_] == '?':
+            sentence_count +=1
+    return (sentence_count_universal)
+
+def flash_index_ru():
+    glasnye = 'еыаоэяиюёУЕЫАОЭЯИЮЁ'
+    syllables = 0
+    sentence_count = 0
+    for _ in range(len(txt)):
+        if glasnye.find(txt[_]) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if txt[_] == '.' or txt[_] == '!' or txt[_] == '?':
+            sentence_count +=1
+        asl=words_count/sentence_count
+        asw=words_count/syllables
+        fre=206.835 - (1.3 * asl) - (60.1 * asw)
+        return (fre)
+
 
 # TODO: deal with textblob and dostoevsky modules.
 
