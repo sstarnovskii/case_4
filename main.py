@@ -34,44 +34,152 @@ else:
     lang_ru = False
 
 # TODO(Aleksandr Zhuravlev): make functions to count: letters, cyllables, words and sentences.
+
+
 def syllables_count_ru():
-    glasnye = 'еыаоэяиюёУЕЫАОЭЯИЮЁ'
-    syllables= 0
-    for _ in range(len(txt)):
-        if glasnye.find(txt[_])!=-1:
+#   Function counting quantity of syllables in the whole text for russian language
+    vowels = 'еыаоэяуиюУЕЫАОЭЯИЮ'
+    syllables = 0
+    for _ in txt:
+        if vowels.find(_)!=-1:
             syllables += 1
-    return (syllables)
+    return syllables
 
-print(syllables_count_ru())
 
-def words_count_ru():
+def words_count_universal():
     words = txt.split(' ')
-    words_count= len(words)
-    return (words_count)
+    words_count = len(words)
+    return words_count
+
 
 def sentence_count_universal():
     sentence_count = 0
-    for _ in range(len(txt)):
-        if txt[_] == '.' or txt[_] == '!' or txt[_] == '?':
-            sentence_count +=1
-    return (sentence_count_universal)
+    for _ in txt:
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    return (sentence_count)
 
-def flash_index_ru():
-    glasnye = 'еыаоэяиюёУЕЫАОЭЯИЮЁ'
+
+def asl_count_ru():
+    vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
     syllables = 0
     sentence_count = 0
-    for _ in range(len(txt)):
-        if glasnye.find(txt[_]) != -1:
+    for _ in txt:
+        if vowels.find(_) != -1:
             syllables += 1
         words = txt.split(' ')
         words_count = len(words)
-        if txt[_] == '.' or txt[_] == '!' or txt[_] == '?':
-            sentence_count +=1
-        asl=words_count/sentence_count
-        asw=words_count/syllables
-        fre=206.835 - (1.3 * asl) - (60.1 * asw)
-        return (fre)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asl = words_count / sentence_count
+    return asl
 
+
+def asw_count_ru():
+    vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
+    syllables = 0
+    sentence_count = 0
+    for _ in txt:
+        if vowels.find(_) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asw = syllables / words_count
+    return asw
+
+
+def flash_index_ru():
+    vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
+    syllables = 0
+    sentence_count = 0
+    for _ in txt:
+        if vowels.find(_) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asl = words_count/sentence_count
+    asw = syllables / words_count
+    fre = 206.835 - (1.3 * asl) - (60.1 * asw)
+    return fre
+
+
+def syllables_count_en():
+#   Function counting quantity of syllables in the whole text for russian language
+    vowels = 'euioaEUIOA'
+    syllables = 0
+    for _ in txt:
+        if vowels.find(_)!=-1:
+            syllables += 1
+    return syllables
+
+
+def asl_count_en():
+#function counting
+    vowels = 'euioaEUIOA'
+    syllables = 0
+    sentence_count = 0
+    for _ in txt:
+        if vowels.find(_) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asl = words_count / sentence_count
+    return asl
+
+
+def asw_count_en():
+# function counting average sentence length for english language
+    vowels = 'euioaEUIOA'
+    syllables = 0
+    sentence_count = 0
+    for _ in txt:
+        if vowels.find(_) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asw = syllables / words_count
+    return asw
+
+
+def flash_index_en():
+#function counting flash index for english language
+    vowels = 'euioaEUIOA'
+    syllables = 0
+    sentence_count = 0
+    for _ in txt:
+        if vowels.find(_) != -1:
+            syllables += 1
+        words = txt.split(' ')
+        words_count = len(words)
+        if _ == '.' or _ == '!' or _ == '?':
+            sentence_count += 1
+    asl = words_count/sentence_count
+    asw = syllables / words_count
+    fre = 206.835 - (1.015 * asl) - (84.6 * asw)
+    return fre
+
+if lang_ru == True:
+    print('Предложений:', sentence_count_universal())
+    print('Слов:', words_count_universal())
+    print('Слогов:', syllables_count_ru())
+    print('Средняя длина предложения в словах:', asl_count_ru())
+    print('Средняя длина слова в слогах:', asw_count_ru())
+    print('Индекс удобочитаемости Флеша:', flash_index_ru())
+else:
+    print('Предложений:', sentence_count_universal())
+    print('Слов:', words_count_universal())
+    print('Слогов:', syllables_count_en())
+    print('Средняя длина предложения в словах:', asl_count_en())
+    print('Средняя длина слова в слогах:', asw_count_en())
+    print('Индекс удобочитаемости Флеша:', flash_index_en())
 
 # TODO: deal with textblob and dostoevsky modules.
 
