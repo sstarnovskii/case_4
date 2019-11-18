@@ -4,6 +4,7 @@
 #               Zhuravlev Alexander ()
 
 import local as lc
+
 lang = input(lc.INPUT)
 while lang != '2' and lang != '1':
     print(lc.ERROR)
@@ -13,9 +14,7 @@ if lang == '1':
 else:
     import local_ru as lc
 
-
 txt = input(lc.INPUT)
-
 
 # Finding language of the text.
 count_ru = 0
@@ -33,34 +32,35 @@ else:
     lang_en = True
     lang_ru = False
 
-# TODO(Aleksandr Zhuravlev): make functions to count: letters, cyllables, words and sentences.
-
 
 def syllables_count_ru():
-#   Function counting quantity of syllables in the whole text for russian language
+    # Function counts quantity of syllables in the text for russian language.
     vowels = 'еыаоэяуиюУЕЫАОЭЯИЮ'
     syllables = 0
     for _ in txt:
-        if vowels.find(_)!=-1:
+        if vowels.find(_) != -1:
             syllables += 1
     return syllables
 
 
 def words_count_universal():
+    # Function counts number of words for any language.
     words = txt.split(' ')
     words_count = len(words)
     return words_count
 
 
 def sentence_count_universal():
+    # Function counts number of sentences for any language.
     sentence_count = 0
     for _ in txt:
         if _ == '.' or _ == '!' or _ == '?':
             sentence_count += 1
-    return (sentence_count)
+    return sentence_count
 
 
 def asl_count_ru():
+    # Function counts average sentence length for russian language.
     vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
     syllables = 0
     sentence_count = 0
@@ -76,6 +76,7 @@ def asl_count_ru():
 
 
 def asw_count_ru():
+    # Function counts average syllables per word for russian language.
     vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
     syllables = 0
     sentence_count = 0
@@ -91,6 +92,7 @@ def asw_count_ru():
 
 
 def flash_index_ru():
+    # Function counts flash index for russian language.
     vowels = 'еыаоэуяиюёУЕЫАОЭЯИЮЁ'
     syllables = 0
     sentence_count = 0
@@ -101,24 +103,24 @@ def flash_index_ru():
         words_count = len(words)
         if _ == '.' or _ == '!' or _ == '?':
             sentence_count += 1
-    asl = words_count/sentence_count
+    asl = words_count / sentence_count
     asw = syllables / words_count
     fre = 206.835 - (1.3 * asl) - (60.1 * asw)
     return fre
 
 
 def syllables_count_en():
-#   Function counting quantity of syllables in the whole text for russian language
+    # Function counts syllables in the text for english language.
     vowels = 'euioaEUIOA'
     syllables = 0
     for _ in txt:
-        if vowels.find(_)!=-1:
+        if vowels.find(_) != -1:
             syllables += 1
     return syllables
 
 
 def asl_count_en():
-#function counting
+    # Function counts average sentence length for english language.
     vowels = 'euioaEUIOA'
     syllables = 0
     sentence_count = 0
@@ -134,7 +136,7 @@ def asl_count_en():
 
 
 def asw_count_en():
-# function counting average sentence length for english language
+    # Function counts average syllables per word for english language.
     vowels = 'euioaEUIOA'
     syllables = 0
     sentence_count = 0
@@ -150,7 +152,7 @@ def asw_count_en():
 
 
 def flash_index_en():
-#function counting flash index for english language
+    # Function counts flash index for english language.
     vowels = 'euioaEUIOA'
     syllables = 0
     sentence_count = 0
@@ -161,26 +163,41 @@ def flash_index_en():
         words_count = len(words)
         if _ == '.' or _ == '!' or _ == '?':
             sentence_count += 1
-    asl = words_count/sentence_count
+    asl = words_count / sentence_count
     asw = syllables / words_count
     fre = 206.835 - (1.015 * asl) - (84.6 * asw)
     return fre
 
-if lang_ru == True:
-    print('Предложений:', sentence_count_universal())
-    print('Слов:', words_count_universal())
-    print('Слогов:', syllables_count_ru())
-    print('Средняя длина предложения в словах:', asl_count_ru())
-    print('Средняя длина слова в слогах:', asw_count_ru())
-    print('Индекс удобочитаемости Флеша:', flash_index_ru())
+
+if lang_ru:
+    print(lc.SENT, sentence_count_universal())
+    print(lc.WORDS, words_count_universal())
+    print(lc.CYLS, syllables_count_ru())
+    print(lc.ASL, asl_count_ru())
+    print(lc.ASW, asw_count_ru())
+    print(lc.FLASH, flash_index_ru())
+    if flash_index_ru() > 80:
+        print(lc.EZ)
+    elif flash_index_ru() > 50:
+        print(lc.SIMPLE)
+    elif flash_index_ru() > 25:
+        print(lc.HARDER)
+    else:
+        print(lc.HARD)
 else:
-    print('Предложений:', sentence_count_universal())
-    print('Слов:', words_count_universal())
-    print('Слогов:', syllables_count_en())
-    print('Средняя длина предложения в словах:', asl_count_en())
-    print('Средняя длина слова в слогах:', asw_count_en())
-    print('Индекс удобочитаемости Флеша:', flash_index_en())
+    print(lc.SENT, sentence_count_universal())
+    print(lc.WORDS, words_count_universal())
+    print(lc.CYLS, syllables_count_en())
+    print(lc.ASL, asl_count_en())
+    print(lc.ASW, asw_count_en())
+    print(lc.FLASH, flash_index_en())
+    if flash_index_en() > 80:
+        print(lc.EZ)
+    elif flash_index_en() > 50:
+        print(lc.SIMPLE)
+    elif flash_index_en() > 25:
+        print(lc.HARDER)
+    else:
+        print(lc.HARD)
 
 # TODO: deal with textblob and dostoevsky modules.
-
-# TODO: (one of the last ones): count Flash index.
