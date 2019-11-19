@@ -1,7 +1,7 @@
 # Case-study #4
 # Developers:   Drachev Nikita (0),
 #               Starnovskiy Sergey (65),
-#               Zhuravlev Alexander (30)
+#               Zhuravlev Alexander (45)
 
 import local as lc
 from textblob import TextBlob
