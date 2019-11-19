@@ -1,9 +1,10 @@
 # Case-study #4
-# Developers:   Drachev Nikita (),
-#               Starnovskiy Sergey (),
-#               Zhuravlev Alexander ()
+# Developers:   Drachev Nikita (0),
+#               Starnovskiy Sergey (65),
+#               Zhuravlev Alexander (30)
 
 import local as lc
+from textblob import TextBlob
 
 lang = input(lc.INPUT)
 while lang != '2' and lang != '1':
@@ -169,6 +170,10 @@ def flash_index_en():
     return fre
 
 
+# Using TextBlob to analyze english text.
+if lang_en:
+    analysis = TextBlob(txt)
+
 if lang_ru:
     print(lc.SENT, sentence_count_universal())
     print(lc.WORDS, words_count_universal())
@@ -199,5 +204,10 @@ else:
         print(lc.HARDER)
     else:
         print(lc.HARD)
-
-# TODO: deal with textblob and dostoevsky modules.
+    print(lc.OBJKV, (1 - round(analysis.sentiment.subjectivity, 2)) * 100, '%', sep='')
+    if analysis.sentiment.polarity > 0.5:
+        print(lc.KEY, lc.POSITIVE)
+    elif -0.5 <= analysis.sentiment.polarity <= 0.5:
+        print(lc.KEY, lc.NEUTRAL)
+    else:
+        print(lc.KEY, lc.NEGATIVE)
